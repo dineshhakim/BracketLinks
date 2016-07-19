@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quick Links For Bracket Internal Purpose</title>
+    <style type="text/css">
+        body {
+            background-color: #3e94ec;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+        }
+        
+        div.table-title {
+            display: block;
+            margin: auto;
+            max-width: 600px;
+            padding: 5px;
+            width: 100%;
+        }
+        
+        .table-title h3 {
+            color: #fafafa;
+            font-size: 30px;
+            font-weight: 400;
+            font-style: normal;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+        }
+        /*** Table Styles **/
+        
+        .table-fill {
+            background: white;
+            border-radius: 3px;
+            border-collapse: collapse;
+            height: 320px;
+            margin: auto;
+            max-width: 600px;
+            padding: 5px;
+            width: 100%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+        }
+        
+        th {
+            color: #D5DDE5;
+            ;
+            background: #1b1e24;
+            border-bottom: 4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size: 23px;
+            font-weight: 100;
+            padding: 24px;
+            text-align: left;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            vertical-align: middle;
+        }
+        
+        th:first-child {
+            border-top-left-radius: 3px;
+        }
+        
+        th:last-child {
+            border-top-right-radius: 3px;
+            border-right: none;
+        }
+        
+        tr {
+            border-top: 1px solid #C1C3D1;
+            border-bottom-: 1px solid #C1C3D1;
+            color: #666B85;
+            font-size: 16px;
+            font-weight: normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+        }
+        
+        tr:hover td {
+            background: #4E5066;
+            color: #FFFFFF;
+            border-top: 1px solid #22262e;
+            border-bottom: 1px solid #22262e;
+        }
+        
+        tr:first-child {
+            border-top: none;
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(odd) td {
+            background: #EBEBEB;
+        }
+        
+        tr:nth-child(odd):hover td {
+            background: #4E5066;
+        }
+        
+        tr:last-child td:first-child {
+            border-bottom-left-radius: 3px;
+        }
+        
+        tr:last-child td:last-child {
+            border-bottom-right-radius: 3px;
+        }
+        
+        td {
+            background: #FFFFFF;
+            padding: 20px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 18px;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #C1C3D1;
+        }
+        
+        td:last-child {
+            border-right: 0px;
+        }
+        
+        th.text-left {
+            text-align: left;
+        }
+        
+        th.text-center {
+            text-align: center;
+        }
+        
+        th.text-right {
+            text-align: right;
+        }
+        
+        td.text-left {
+            text-align: left;
+        }
+        
+        td.text-center {
+            text-align: center;
+        }
+        
+        td.text-right {
+            text-align: right;
+        }
+        
+        <!-- --> <!-- --> .search button {
+            height: 30px;
+            background: #85BD02;
+            border: 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            transition: all 0.6s;
+            width: 40%;
+        }
+        
+        .search input {
+            height: 25px;
+            transition: all 0.6s;
+            box-shadow: none;
+            width: 55%;
+        }
+        
+        .search button:hover,
+        .search input:hover {
+            box-shadow: 1px 1px 2px black;
+        }
+        
+        .button {
+            position: relative;
+            background-color: #4CAF50;
+            border: none;
+            font-size: 14px;
+            color: #FFFFFF;
+            padding: 10px;
+            width: 70%;
+            text-align: center;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .button:after {
+            content: "";
+            background: #f1f1f1;
+            display: block;
+            position: absolute;
+            padding-top: 300%;
+            padding-left: 350%;
+            margin-left: -20px !important;
+            margin-top: -120%;
+            opacity: 0;
+            transition: all 0.8s
+        }
+        
+        .button:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            transition: 0s
+        }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
+    <script>
+        function getQuickLinks() {
+            var dbName = $('#dbName').val();
+            if (dbName == '') {
+                alert('Enter Valid Database Name');
+                return;
+            }
+            var underScorePos = dbName.indexOf("_");
+            var secondCapPos = getSecondCapPosition(dbName);
+            var sponsor = dbName.substring(0, secondCapPos);
+            var study = dbName.substring(secondCapPos, underScorePos);
+            var version = dbName.substr(underScorePos + 1, 3);
+
+            var link = '';
+            $("a").each(function () {
+                link = this.href;
+                link = link.replace("Study", study);
+                link = link.replace("Sponsor", sponsor);
+                this.href = link;
+
+            });
+        };
+
+        function getSecondCapPosition(inputString) {
+            var positions = [];
+            for (var i = 0; i < inputString.length; i++) {
+                if (inputString[i].match(/[A-Z]/) != null) {
+                    positions.push(i);
+                }
+            }
+            return positions[1];
+        }
+        $(function () {
+            $(".button").click(function () {
+                var item = $(this).closest("tr").find("a").attr('href');
+                //clip(item);
+                window.prompt("Copy to clipboard: Ctrl+C, Enter", item);
+            })
+        });
+/*
+        function clip(text) {
+            var copyElement = document.createElement('input');
+            copyElement.setAttribute('type', 'text');
+            copyElement.setAttribute('value', text);
+            copyElement = document.body.appendChild(copyElement);
+            copyElement.select();
+            document.execCommand('copy');
+            copyElement.remove();
+        }*/
+
+    </script>
+</head>
+
+<body>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Quick Links For Bracket Internal Purpose</title>
+        <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+    </head>
+
+    <body>
+        <div class="table-title">
+            <h4>Quick Links For Bracket Internal Purpose</h4>
+            <h4>Use internet Explorer. Ctrl+Click to link on other tab</h4>
+            <div class="search">
+                <input type="text" id='dbName' placeholder="Enter Database Name" required='required' />
+                <button onclick="getQuickLinks(this)">View</button>
+            </div>
+        </div>
+        <table class="table-fill">
+            <thead>
+                <tr>
+                    <th class="text-left">Path To</th>
+                    <th class="text-left">Link</th>
+                    <th class="text-left">Copy Link</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+                <tr>
+                    <td class="text-left">Requirement</td>
+                    <td class="text-left"><a href="P:\Clients\Sponsor\Study">Click</a></td>
+                    <td>
+                        <button class="button">Copy Link</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left">NP Log SD</td>
+                    <td class="text-left"><a href="\\ctgsfsdfax02\Logs\NP3.6\Notification Service\Study">Click</a></td>
+                    <td>
+                        <button class="button">Copy Link</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left">Job Log SD</td>
+                    <td class="text-left"><a href="\\ctgsfsdfax02\Logs\NP3.6\Job Service\Study">Click</a></td>
+                    <td>
+                        <button class="button">Copy Link</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left">XML Files SD</td>
+                    <td class="text-left"><a href="\\ctgsfsdfax02\FaxApps\XML\Study">Click</a></td>
+                    <td>
+                        <button class="button">Copy Link</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</body>
+
+</html>
